@@ -1,0 +1,19 @@
+﻿@using WebAppAspNetMvcImportExcel.Models;
+@model AvailableDocument
+
+@{
+    Layout = null;
+    var controllerName = "AvailableDocuments";
+    var actionName = "Edit";
+    var enctype = "multipart/form-data";
+}
+
+<h3>Изменение списка документов</h3>
+
+@using (Html.BeginForm(actionName, controllerName, FormMethod.Post, new { @enctype = enctype }))
+{
+
+    @Html.EditorForModel()
+    <button class="btn btn-success" onclick="Post('@controllerName','@actionName')">Сохранить</button>
+    @Html.ActionLink("Отменить", "Index", controllerName, null, new { @class = "btn btn-warning" })
+}
