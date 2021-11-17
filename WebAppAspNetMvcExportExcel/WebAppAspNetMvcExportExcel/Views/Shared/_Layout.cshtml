@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Госуслуги</title>
+    @Styles.Render("~/Content/css")
+    
+</head>
+<body>
+    <div>
+        <div class="container">
+            <nav class="navbar-expand-md navbar-light">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li>
+                        <a href="/Clients" class="nav-link bg-info text-white">Клиенты</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-warning text-white" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Услуги
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item bg-warning text-white" href="/Orders">Услуги</a></li>
+                            <li><a class="dropdown-item bg-transparent text-black" href="/ImportOrders">Импорт услуг</a></li>
+                            <li><a class="dropdown-item bg-secondary text-white" href="/ImportOrders/History">История импорта</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/ClientTypes" class="nav-link bg-danger text-white">Типы клиентов</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Citizenships" class="nav-link bg-success text-white">Гражданства</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/AvailableDocuments" class="nav-link bg-primary text-white">Список документов</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Settings" class="nav-link bg-dark text-white">Настройки</a>
+                    </li>
+
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
