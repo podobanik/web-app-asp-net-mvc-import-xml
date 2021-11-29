@@ -1,0 +1,12 @@
+﻿@using WebAppAspNetMvcImportXml.Models
+@model ImportXmlClientViewModel
+
+<h3>Импорт клиентов</h3>
+
+@using (Html.BeginForm("Import", "ImportXmlClients", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.EditorForModel()
+
+    @Html.ActionLink("Пример файла", "GetExample", null, new { @class = "btn btn-info" })
+    <input type="submit" value="Сохранить" class="btn btn-warning" />
+}

@@ -1,0 +1,17 @@
+﻿@using WebAppAspNetMvcImportXml.Models;
+@model Order
+@{
+    Layout = null;
+    var controllerName = "Orders";
+    var actionName = "Edit";
+    var enctype = "application/x-www-form-urlencoded";
+}
+<h3>Услуга</h3>
+
+@using (Html.BeginForm(actionName, controllerName, FormMethod.Post, new { @enctype = enctype }))
+{
+
+    @Html.EditorForModel()
+    <button class="btn btn-success" onclick="Post('@controllerName','@actionName', '@enctype')">Сохранить</button>
+    @Html.ActionLink("Отменить", "Index", controllerName, null, new { @class = "btn btn-warning" })
+}
