@@ -22,25 +22,25 @@ namespace WebAppAspNetMvcImportXml.Models
         public string Surname { get; set; }
 
         /// <summary>
-        /// Год издания книги
+        /// Возраст
         /// </summary>  
         [XmlElement("Age")]
         public int Age { get; set; }
 
         /// <summary>
-        /// Год издания книги
+        /// Дата рождения
         /// </summary>  
         [XmlElement("Birthday")]
         public DateTime? Birthday { get; set; }
 
         /// <summary>
-        /// Стоимость
+        /// Пол
         /// </summary>  
         [XmlElement("Gender")]
         public Gender Gender { get; set; }
 
         /// <summary>
-        /// Тип валюты
+        /// Тип клиента
         /// </summary> 
         [XmlArray("ClientTypes")]
         [XmlArrayItem(typeof(XmlClientType), ElementName = "ClientType")]
@@ -50,21 +50,21 @@ namespace WebAppAspNetMvcImportXml.Models
 
 
         ///// <summary>
-        ///// Авторы
+        ///// Услуги
         ///// </summary> 
         [XmlArray("Orders")]
         [XmlArrayItem(typeof(XmlOrder), ElementName = "Order")]
         public virtual List<XmlOrder> Orders { get; set; }
 
         ///// <summary>
-        ///// Языки
+        ///// Гражданства
         ///// </summary> 
         [XmlArray("Citizenships")]
         [XmlArrayItem(typeof(XmlCitizenship), ElementName = "Citizenship")]
         public virtual List<XmlCitizenship> Citizenships { get; set; }
 
         ///// <summary>
-        ///// Языки
+        ///// Список документов
         ///// </summary> 
         [XmlArray("AvailableDocuments")]
         [XmlArrayItem(typeof(XmlAvailableDocument), ElementName = "AvailableDocument")]
@@ -77,13 +77,13 @@ namespace WebAppAspNetMvcImportXml.Models
         public bool IsArchive { get; set; }
 
         /// <summary>
-        /// Описание
+        /// Отзывы
         /// </summary>    
         [XmlElement("Annotation")]
         public string Reviews { get; set; }
 
         /// <summary>
-        /// Обложка книги
+        /// Фото клиента
         /// </summary>    
         [XmlElement("Document")]
         public XmlDocument Document { get; set; }
