@@ -118,7 +118,7 @@ namespace WebAppAspNetMvcImportXml.Models
         public virtual Document Documents { get; set; }
 
 
-        [Display(Name = "Паспорт", Order = 60)]
+        [Display(Name = "Фото клиента", Order = 60)]
         [NotMapped]
         public HttpPostedFileBase DocumentFile { get; set; }
 

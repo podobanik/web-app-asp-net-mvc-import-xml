@@ -10,6 +10,7 @@ using Rotativa;
 using Common.Extentions;
 using System.Xml.Serialization;
 using System.Xml;
+using ClosedXML.Excel;
 
 namespace WebAppAspNetMvcImportXml.Controllers
 {
@@ -263,9 +264,64 @@ namespace WebAppAspNetMvcImportXml.Controllers
         public ActionResult GetXlsx()
         {
             var db = new GosuslugiContext();
-            var xlsx = db.Clients.ToXlsx();
+            var values = db.Clients.ToList();
 
-            return File(xlsx.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Clients.xlsx");
+            var wb = new XLWorkbook();
+            var ws = wb.Worksheets.Add("Data");
+
+
+            ws.Cell("A" + 1).Value = "Id";
+            ws.Cell("B" + 1).Value = "Имя клиента";
+            ws.Cell("C" + 1).Value = "Фамилия клиента";
+            ws.Cell("D" + 1).Value = "Возраст клиента";
+            ws.Cell("E" + 1).Value = "Дата рождения";
+            ws.Cell("F" + 1).Value = "Пол";
+            //ws.Cell("G" + 1).Value = "Тип клиента";
+            //ws.Cell("H" + 1).Value = "Услуги";
+            //ws.Cell("I" + 1).Value = "Гражданства";
+            //ws.Cell("J" + 1).Value = "Имеющиеся документы";
+            ws.Cell("G" + 1).Value = "Отзыв";
+            ws.Cell("H" + 1).Value = "Архив";
+            
+            
+
+            int row = 2;
+            foreach (var value in values)
+            {
+                ws.Cell("A" + row).Value = value.Id;
+                ws.Cell("B" + row).Value = value.Name;
+                ws.Cell("C" + row).Value = value.Surname;
+                ws.Cell("D" + row).Value = value.Age;
+                ws.Cell("E" + row).Value = value.Birthday;
+                ws.Cell("F" + row).Value = value.Gender;
+                //ws.Cell("G" + row).Value = string.Join(", ", value.ClientTypes.Select(y => $"{y.Name}"));
+                //ws.Cell("H" + row).Value = string.Join(", ", value.Orders.Select(x => $"{x.Procedure}"));
+                //ws.Cell("I" + row).Value = string.Join(", ", value.Citizenships.Select(x => $"{x.Name}"));
+                //ws.Cell("J" + row).Value = string.Join(", ", value.AvailableDocuments.Select(x => $"{x.Name}"));
+                ws.Cell("G" + row).Value = value.Reviews;
+                ws.Cell("H" + row).Value = value.IsArchive;
+                
+                row++;
+            };
+            var rngHead = ws.Range("A1:L" + 1);
+            rngHead.Style.Fill.BackgroundColor = XLColor.AshGrey;
+
+            var rngTable = ws.Range("A1:L" + 100);
+            rngTable.Style.Border.RightBorder = XLBorderStyleValues.Thin;
+            rngTable.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+
+            ws.Columns().AdjustToContents();
+
+
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                wb.SaveAs(stream);
+                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Clients.xlsx");
+            }
+
+
+            
         }
 
 
@@ -282,10 +338,10 @@ namespace WebAppAspNetMvcImportXml.Controllers
                 IsArchive = x.IsArchive,
                 Surname = x.Surname,
                 Name = x.Name,
-                Orders = x.Orders.Select(y => new XmlOrder() { Id = y.Id }).ToList(),
-                ClientTypes = x.ClientTypes.Select(y => new XmlClientType() { Id = y.Id }).ToList(),
-                Citizenships = x.Citizenships.Select(y => new XmlCitizenship() { Id = y.Id }).ToList(),
-                AvailableDocuments = x.AvailableDocuments.Select(y => new XmlAvailableDocument() { Id = y.Id }).ToList(),
+                Orders = x.Orders.Select(y => new XmlOrder() { Procedure = y.Procedure, Id = y.Id } ).ToList(),
+                ClientTypes = x.ClientTypes.Select(y => new XmlClientType() { Name = y.Name, Id = y.Id }).ToList(),
+                Citizenships = x.Citizenships.Select(y => new XmlCitizenship() { Name = y.Name, Id = y.Id }).ToList(),
+                AvailableDocuments = x.AvailableDocuments.Select(y => new XmlAvailableDocument() { Name = y.Name, Id = y.Id }).ToList(),
                 Document = x.Documents == null ? null : new Models.XmlDocument()
                 {
                     ContentType = x.Documents.ContentType,

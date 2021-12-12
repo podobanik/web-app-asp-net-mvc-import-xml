@@ -14,5 +14,8 @@ namespace WebAppAspNetMvcImportXml.Models
         /// </summary> 
         [XmlElement("Id")]
         public int Id { get; set; }
+
+        [XmlElement("Name")]
+        public string Procedure { get; set; }
     }
 }
